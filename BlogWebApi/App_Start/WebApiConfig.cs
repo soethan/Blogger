@@ -22,6 +22,18 @@ namespace BlogWebApi
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
+                name: "Blog",
+                routeTemplate: "api/blogs/{id}",
+                defaults: new { controller = "blogs", id = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "Post",
+                routeTemplate: "api/blogs/{blogId}/posts/{id}",
+                defaults: new { controller = "posts", id = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }

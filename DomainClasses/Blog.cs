@@ -8,6 +8,10 @@ namespace BlogApi.DomainClasses
 {
     public class Blog
     {
+        public Blog()
+        {
+            Posts = new List<Post>();
+        }
         public int Id { get; set; }
         public string Title { get; set; }
         public string BloggerName { get; set; }

@@ -10,20 +10,20 @@ using System.Web.Http;
 
 namespace BlogWebApi.Controllers
 {
-    public class BlogController : ApiController
+    public class BlogsController : ApiController
     {
-        public BlogController()
+        public BlogsController()
         {
 
         }
-        public Blog Create([FromBody]BlogModel model)
+        public HttpResponseMessage Create(BlogModel model)
         {
             var blog = new Blog { BloggerName = model.BloggerName, Title = model.Title };
             var dbContext = new Context();
             dbContext.Blogs.Add(blog);
             dbContext.SaveChanges();
 
-            return dbContext.Blogs.Where(b => b.BlogCode == blog.BlogCode).FirstOrDefault();
+            return Request.CreateResponse(HttpStatusCode.Created, blog);
         }
     }
 }
