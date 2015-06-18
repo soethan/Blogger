@@ -31,6 +31,7 @@ namespace BlogWebApi.Controllers
             _repository.AddPost(blogId, post);
             _repository.SaveChanges();
 
+            //post id is automatically assigned by Entity Framework!
             return Request.CreateResponse(HttpStatusCode.Created, post.Id);
         }
     }
