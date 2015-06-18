@@ -31,6 +31,12 @@ namespace BlogApi.DataAccessLayer.Repositories
             _context.Blogs.Add(blog);
         }
 
+        public void UpdateBlog(int id, string title)
+        {
+            var blog = GetBlog(id);
+            blog.Title = title;
+        }
+
         public List<Post> GetAllPosts()
         {
             return _context.Posts.ToList();

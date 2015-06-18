@@ -10,6 +10,7 @@ namespace BlogApi.DataAccessLayer.Repositories
         List<Post> GetAllPosts();
         Blog GetBlog(int id);
         void AddBlog(Blog blog);
+        void UpdateBlog(int id, string title);
         void AddPost(int blogId, Post post);
         int SaveChanges();
     }

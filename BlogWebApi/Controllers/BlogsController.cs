@@ -42,7 +42,29 @@ namespace BlogWebApi.Controllers
                 }
                 return Request.CreateResponse(HttpStatusCode.BadRequest, new { Errors = errorList });
             }
-            
+        }
+
+        public HttpResponseMessage Put(int id, BlogModel model)
+        {
+            try
+            {
+                _repository.UpdateBlog(id, model.Title);
+                _repository.SaveChanges();
+
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                var errorList = new List<string>();
+                foreach (DbEntityValidationResult entityErr in dbEx.EntityValidationErrors)
+                {
+                    foreach (DbValidationError error in entityErr.ValidationErrors)
+                    {
+                        errorList.Add(error.ErrorMessage);
+                    }
+                }
+                return Request.CreateResponse(HttpStatusCode.BadRequest, new { Errors = errorList });
+            }
         }
     }
 }
