@@ -1,4 +1,5 @@
-﻿using BlogApi.DomainClasses;
+﻿using BlogApi.DataAccessLayer.EntityConfigurations;
+using BlogApi.DomainClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -21,7 +22,7 @@ namespace BlogApi.DataAccessLayer
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Configurations.Add(new BlogConfiguration());
         }
     }
 }
