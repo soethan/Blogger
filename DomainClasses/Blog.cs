@@ -16,17 +16,26 @@ namespace BlogApi.DomainClasses
         public string Title { get; set; }
         public string BloggerName { get; set; }
         public List<Post> Posts { get; set; }
-        public string BlogCode
-        {
+        public byte[] RowVersion { get; set; }
+        public DateTime CreatedDate {
             get
             {
-                return Title.Substring(0, 1) + ":" + BloggerName.Substring(0, 1);
+                return DateTimeOffset.UtcNow.UtcDateTime;
             }
-            private set
-            { 
-            
-            }
+            private set { }
         }
+
+        //public string BlogCode
+        //{
+        //    get
+        //    {
+        //        return Title.Substring(0, 1) + ":" + BloggerName.Substring(0, 1);
+        //    }
+        //    private set
+        //    { 
+            
+        //    }
+        //}
         
     }
 }
