@@ -12,6 +12,8 @@ namespace BlogWebApi.App_Start
     using Ninject.Web.Common;
     using System.Web.Http;
     using WebApiContrib.IoC.Ninject;
+    using BlogApi.DataAccessLayer.Repositories;
+    using BlogApi.DataAccessLayer;
 
     public static class NinjectWebCommon 
     {
@@ -66,6 +68,8 @@ namespace BlogWebApi.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<IBlogsRepository>().To<BlogsRepository>();
+
         }        
     }
 }

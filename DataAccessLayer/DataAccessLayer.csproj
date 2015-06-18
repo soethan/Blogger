@@ -46,8 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context.cs" />
+    <Compile Include="BlogsContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\BlogsRepository.cs" />
+    <Compile Include="Repositories\IBlogsRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,4 +1,5 @@
 ﻿using BlogApi.DataAccessLayer;
+using BlogApi.DataAccessLayer.Repositories;
 using BlogApi.DomainClasses;
 using BlogWebApi.Models;
 using System;
@@ -12,23 +13,23 @@ namespace BlogWebApi.Controllers
 {
     public class PostsController : ApiController
     {
-        public PostsController()
-        {
+        private readonly IBlogsRepository _repository;
 
+        public PostsController(IBlogsRepository repository)
+        {
+            _repository = repository;
         }
         public HttpResponseMessage Create(int blogId, PostModel model)
         {
-            
             var post = new Post { Title = model.Title, Content = model.Content };
-            var dbContext = new Context();
 
-            var blog = dbContext.Blogs.Find(blogId);
+            var blog = _repository.GetBlog(blogId);
             if (blog == null)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Blog does not exist.");
             }
-            blog.Posts.Add(post);
-            dbContext.SaveChanges();
+            _repository.AddPost(blogId, post);
+            _repository.SaveChanges();
 
             return Request.CreateResponse(HttpStatusCode.Created, post.Id);
         }

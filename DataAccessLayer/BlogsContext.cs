@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace BlogApi.DataAccessLayer
 {
-    public class Context: DbContext
+    public class BlogsContext: DbContext
     {
-        public Context()
+        public BlogsContext()
             : base("name=DefaultConnection")
         {
 

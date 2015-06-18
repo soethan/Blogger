@@ -1,4 +1,5 @@
 ﻿using BlogApi.DataAccessLayer;
+using BlogApi.DataAccessLayer.Repositories;
 using BlogApi.DomainClasses;
 using BlogWebApi.Models;
 using System;
@@ -12,16 +13,17 @@ namespace BlogWebApi.Controllers
 {
     public class BlogsController : ApiController
     {
-        public BlogsController()
-        {
+        private readonly IBlogsRepository _repository;
 
+        public BlogsController(IBlogsRepository repository)
+        {
+            _repository = repository;
         }
         public HttpResponseMessage Create(BlogModel model)
         {
             var blog = new Blog { BloggerName = model.BloggerName, Title = model.Title };
-            var dbContext = new Context();
-            dbContext.Blogs.Add(blog);
-            dbContext.SaveChanges();
+            _repository.AddBlog(blog);
+            _repository.SaveChanges();
 
             return Request.CreateResponse(HttpStatusCode.Created, blog);
         }
