@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Data.Entity.Infrastructure;
 
 namespace BlogWebApi.Controllers
 {
@@ -52,6 +53,10 @@ namespace BlogWebApi.Controllers
                 _repository.SaveChanges();
 
                 return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Concurrency Exception");
             }
             catch (DbEntityValidationException dbEx)
             {
