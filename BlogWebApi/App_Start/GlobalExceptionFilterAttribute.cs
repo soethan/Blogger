@@ -12,7 +12,7 @@ namespace BlogWebApi.App_Start
     /// <summary>
     /// Exception Filter to handle Validation Errors in Entity
     /// </summary>
-    public class DbEntityValidationExceptionFilterAttribute : ExceptionFilterAttribute
+    public class GlobalExceptionFilterAttribute : ExceptionFilterAttribute
     {
         public override void OnException(HttpActionExecutedContext context)
         {
@@ -28,6 +28,10 @@ namespace BlogWebApi.App_Start
                     }
                 }
                 context.Response = context.Request.CreateResponse(HttpStatusCode.BadRequest, new { Errors = errorList });
+            }
+            else
+            {
+                context.Response = new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
         }
     }

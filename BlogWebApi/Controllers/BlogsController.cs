@@ -37,5 +37,17 @@ namespace BlogWebApi.Controllers
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
+
+        public HttpResponseMessage Delete(int id)
+        {
+            if (_repository.GetBlog(id) == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Blog does not exist.");
+            }
+            _repository.DeleteBlog(id);
+            _repository.SaveChanges();
+
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
     }
 }

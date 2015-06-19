@@ -19,7 +19,7 @@ namespace BlogWebApi
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
-            config.Filters.Add(new DbEntityValidationExceptionFilterAttribute());
+            config.Filters.Add(new GlobalExceptionFilterAttribute());
 
             // Web API routes
             config.MapHttpAttributeRoutes();

@@ -38,6 +38,12 @@ namespace BlogApi.DataAccessLayer.Repositories
             blog.Title = title;
         }
 
+        public void DeleteBlog(int id)
+        {
+            var blog = GetBlog(id);
+            _context.Blogs.Remove(blog);
+        }
+
         public List<Post> GetAllPosts()
         {
             return _context.Posts.ToList();

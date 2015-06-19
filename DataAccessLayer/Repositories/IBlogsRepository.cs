@@ -7,10 +7,12 @@ namespace BlogApi.DataAccessLayer.Repositories
     public interface IBlogsRepository
     {
         List<Blog> GetAllBlogs();
-        List<Post> GetAllPosts();
         Blog GetBlog(int id);
         void AddBlog(Blog blog);
         void UpdateBlog(int id, string title);
+        void DeleteBlog(int id);
+
+        List<Post> GetAllPosts();
         void AddPost(int blogId, Post post);
         int SaveChanges();
     }
