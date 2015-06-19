@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script>
+        $(function () {
+            $.getJSON("http://localhost:60394/api/blogs?callback=?", function (result) {
+                var results = [];
+
+                $("#totalItems").html(result.length);
+                for (var i = 0; i < result.length; i++) {
+                    results.push(result[i].title);
+                }
+                $("#results").html(results.join("<br/>"));
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Total Items: <span id="totalItems"></span></h1>
+    <div id="results"></div>
+</body>
+</html>
