@@ -11,11 +11,15 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Data.Entity.Infrastructure;
 using BlogWebApi.App_Start;
+using log4net;
+using System.Reflection;
 
 namespace BlogWebApi.Controllers
 {
     public class BlogsController : ApiController
     {
+        private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private readonly IBlogsRepository _repository;
 
         public BlogsController(IBlogsRepository repository)
@@ -29,6 +33,7 @@ namespace BlogWebApi.Controllers
                     .OrderBy(b => b.Title)
                     .Skip(Constants.PAGE_SIZE * page)
                     .Take(Constants.PAGE_SIZE);
+            log.Info(string.Format("Get blog list[page={0}]", page));
             return query.ToList();
         }
 
