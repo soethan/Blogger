@@ -32,6 +32,10 @@ namespace BlogWebApi.Controllers
 
         public HttpResponseMessage Put(int id, BlogModel model)
         {
+            if (_repository.GetBlog(id) == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Blog does not exist.");
+            }
             _repository.UpdateBlog(id, model.Title);
             _repository.SaveChanges();
 

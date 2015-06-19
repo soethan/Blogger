@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using BlogApi.DomainClasses;
+using System.Linq;
 
 namespace BlogApi.DataAccessLayer.Repositories
 {
     public interface IBlogsRepository
     {
-        List<Blog> GetAllBlogs();
+        IQueryable<Blog> GetAllBlogs();
         Blog GetBlog(int id);
         void AddBlog(Blog blog);
         void UpdateBlog(int id, string title);
         void DeleteBlog(int id);
 
-        List<Post> GetAllPosts();
+        IQueryable<Post> GetAllPosts();
         void AddPost(int blogId, Post post);
         int SaveChanges();
     }

@@ -17,14 +17,14 @@ namespace BlogApi.DataAccessLayer.Repositories
             _context = context;
         }
 
-        public List<Blog> GetAllBlogs()
+        public IQueryable<Blog> GetAllBlogs()
         {
-            return _context.Blogs.ToList();
+            return _context.Blogs.AsQueryable();
         }
 
         public Blog GetBlog(int id)
         {
-            return _context.Blogs.Where(b => b.Id == id).FirstOrDefault();
+            return GetAllBlogs().Where(b => b.Id == id).FirstOrDefault();
         }
 
         public void AddBlog(Blog blog)
@@ -44,9 +44,9 @@ namespace BlogApi.DataAccessLayer.Repositories
             _context.Blogs.Remove(blog);
         }
 
-        public List<Post> GetAllPosts()
+        public IQueryable<Post> GetAllPosts()
         {
-            return _context.Posts.ToList();
+            return _context.Posts.AsQueryable();
         }
 
         public void AddPost(int blogId, Post post)
