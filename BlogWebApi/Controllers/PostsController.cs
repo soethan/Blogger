@@ -1,6 +1,7 @@
 ﻿using BlogApi.DataAccessLayer;
 using BlogApi.DataAccessLayer.Repositories;
 using BlogApi.DomainClasses;
+using BlogWebApi.App_Start;
 using BlogWebApi.Models;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,6 @@ namespace BlogWebApi.Controllers
 {
     public class PostsController : ApiController
     {
-        const int PAGE_SIZE = 10;
         private readonly IBlogsRepository _repository;
 
         public PostsController(IBlogsRepository repository)
@@ -30,8 +30,8 @@ namespace BlogWebApi.Controllers
 
             var query = _repository.GetAllPosts(blogId)
                     .OrderBy(p => p.Title)
-                    .Skip(PAGE_SIZE * page)
-                    .Take(PAGE_SIZE);
+                    .Skip(Constants.PAGE_SIZE * page)
+                    .Take(Constants.PAGE_SIZE);
             return Request.CreateResponse(HttpStatusCode.OK, query.ToList());
         }
 

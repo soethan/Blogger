@@ -10,12 +10,12 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Data.Entity.Infrastructure;
+using BlogWebApi.App_Start;
 
 namespace BlogWebApi.Controllers
 {
     public class BlogsController : ApiController
     {
-        const int PAGE_SIZE = 10;
         private readonly IBlogsRepository _repository;
 
         public BlogsController(IBlogsRepository repository)
@@ -27,8 +27,8 @@ namespace BlogWebApi.Controllers
         {
             var query = _repository.GetAllBlogs()
                     .OrderBy(b => b.Title)
-                    .Skip(PAGE_SIZE * page)
-                    .Take(PAGE_SIZE);
+                    .Skip(Constants.PAGE_SIZE * page)
+                    .Take(Constants.PAGE_SIZE);
             return query.ToList();
         }
 
