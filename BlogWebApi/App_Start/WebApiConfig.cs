@@ -6,6 +6,7 @@ using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using System.Net.Http.Formatting;
+using BlogWebApi.App_Start;
 
 namespace BlogWebApi
 {
@@ -17,6 +18,8 @@ namespace BlogWebApi
             // Configure Web API to use only bearer token authentication.
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+
+            config.Filters.Add(new DbEntityValidationExceptionFilterAttribute());
 
             // Web API routes
             config.MapHttpAttributeRoutes();

@@ -23,53 +23,19 @@ namespace BlogWebApi.Controllers
         }
         public HttpResponseMessage Create(BlogModel model)
         {
-            try
-            {
-                var blog = new Blog { BloggerName = model.BloggerName, Title = model.Title };
-                _repository.AddBlog(blog);
-                _repository.SaveChanges();
+            var blog = new Blog { BloggerName = model.BloggerName, Title = model.Title };
+            _repository.AddBlog(blog);
+            _repository.SaveChanges();
 
-                return Request.CreateResponse(HttpStatusCode.Created, blog);
-            }
-            catch (DbEntityValidationException dbEx)
-            {
-                var errorList = new List<string>();
-                foreach (DbEntityValidationResult entityErr in dbEx.EntityValidationErrors)
-                {
-                    foreach (DbValidationError error in entityErr.ValidationErrors)
-                    {
-                        errorList.Add(error.ErrorMessage);
-                    }
-                }
-                return Request.CreateResponse(HttpStatusCode.BadRequest, new { Errors = errorList });
-            }
+            return Request.CreateResponse(HttpStatusCode.Created, blog);
         }
 
         public HttpResponseMessage Put(int id, BlogModel model)
         {
-            try
-            {
-                _repository.UpdateBlog(id, model.Title);
-                _repository.SaveChanges();
+            _repository.UpdateBlog(id, model.Title);
+            _repository.SaveChanges();
 
-                return Request.CreateResponse(HttpStatusCode.OK);
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Concurrency Exception");
-            }
-            catch (DbEntityValidationException dbEx)
-            {
-                var errorList = new List<string>();
-                foreach (DbEntityValidationResult entityErr in dbEx.EntityValidationErrors)
-                {
-                    foreach (DbValidationError error in entityErr.ValidationErrors)
-                    {
-                        errorList.Add(error.ErrorMessage);
-                    }
-                }
-                return Request.CreateResponse(HttpStatusCode.BadRequest, new { Errors = errorList });
-            }
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

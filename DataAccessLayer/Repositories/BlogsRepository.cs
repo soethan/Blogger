@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BlogApi.DataAccessLayer.Repositories;
+using System.Data.Entity.Infrastructure;
 
 namespace BlogApi.DataAccessLayer.Repositories
 {
@@ -50,7 +51,17 @@ namespace BlogApi.DataAccessLayer.Repositories
 
         public int SaveChanges()
         {
-            return _context.SaveChanges();
+            try
+            {
+                return _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                //Overwrite existing Database values with new update values... 
+                var entry = ex.Entries.Single();
+                entry.OriginalValues.SetValues(entry.GetDatabaseValues());
+                return _context.SaveChanges();
+            }
         }
     }
 }
