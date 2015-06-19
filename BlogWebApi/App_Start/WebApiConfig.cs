@@ -6,7 +6,7 @@ using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using System.Net.Http.Formatting;
-using BlogWebApi.App_Start;
+using BlogWebApi.Filters;
 
 namespace BlogWebApi
 {
@@ -20,6 +20,9 @@ namespace BlogWebApi
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
             config.Filters.Add(new GlobalExceptionFilterAttribute());
+
+            //Note: Use below global filter to force the web api to use Https only
+            //config.Filters.Add(new RequireHttpsFilterAttribute());
 
             // Web API routes
             config.MapHttpAttributeRoutes();

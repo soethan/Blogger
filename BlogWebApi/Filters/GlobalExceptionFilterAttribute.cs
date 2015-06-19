@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http.Filters;
 
-namespace BlogWebApi.App_Start
+namespace BlogWebApi.Filters
 {
     /// <summary>
     /// Exception Filter to handle Validation Errors in Entity
