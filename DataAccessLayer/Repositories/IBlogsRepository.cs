@@ -13,7 +13,7 @@ namespace BlogApi.DataAccessLayer.Repositories
         void UpdateBlog(int id, string title);
         void DeleteBlog(int id);
 
-        IQueryable<Post> GetAllPosts();
+        IQueryable<Post> GetAllPosts(int blogId);
         void AddPost(int blogId, Post post);
         int SaveChanges();
     }

@@ -44,9 +44,14 @@ namespace BlogApi.DataAccessLayer.Repositories
             _context.Blogs.Remove(blog);
         }
 
-        public IQueryable<Post> GetAllPosts()
+        public IQueryable<Post> GetAllPosts(int blogId)
         {
-            return _context.Posts.AsQueryable();
+            var blog = GetBlog(blogId);
+            if (blog == null)
+            {
+                return null;
+            }
+            return blog.Posts.AsQueryable();
         }
 
         public void AddPost(int blogId, Post post)

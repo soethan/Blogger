@@ -25,10 +25,11 @@ namespace BlogWebApi.Controllers
 
         public IEnumerable<Blog> Get(int page = 0)
         {
-            return _repository.GetAllBlogs()
+            var query = _repository.GetAllBlogs()
                     .OrderBy(b => b.Title)
                     .Skip(PAGE_SIZE * page)
-                    .Take(PAGE_SIZE).ToList();
+                    .Take(PAGE_SIZE);
+            return query.ToList();
         }
 
         public HttpResponseMessage Create(BlogModel model)
