@@ -7,6 +7,7 @@ using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using System.Net.Http.Formatting;
 using BlogWebApi.Filters;
+using WebApiContrib.Formatting.Jsonp;
 
 namespace BlogWebApi
 {
@@ -47,6 +48,10 @@ namespace BlogWebApi
 
             var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().FirstOrDefault();
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+            //To support jsonp
+            var formatter = new JsonpMediaTypeFormatter(jsonFormatter);
+            config.Formatters.Insert(0, formatter);
         }
     }
 }
