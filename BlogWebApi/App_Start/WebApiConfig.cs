@@ -8,6 +8,7 @@ using Newtonsoft.Json.Serialization;
 using System.Net.Http.Formatting;
 using BlogWebApi.Filters;
 using WebApiContrib.Formatting.Jsonp;
+using System.Web.Http.Cors;
 
 namespace BlogWebApi
 {
@@ -21,6 +22,9 @@ namespace BlogWebApi
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
             config.Filters.Add(new GlobalExceptionFilterAttribute());
+            
+            //To support CORS Cross-Origin Resource Sharing, use below
+            //config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
 
             //Note: Use below global filter to force the web api to use Https only
             //config.Filters.Add(new RequireHttpsFilterAttribute());
@@ -52,6 +56,7 @@ namespace BlogWebApi
             //To support jsonp
             var formatter = new JsonpMediaTypeFormatter(jsonFormatter);
             config.Formatters.Insert(0, formatter);
+            
         }
     }
 }
