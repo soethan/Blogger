@@ -15,12 +15,22 @@ namespace BlogWebApi.Controllers
 {
     public class BlogsController : ApiController
     {
+        const int PAGE_SIZE = 10;
         private readonly IBlogsRepository _repository;
 
         public BlogsController(IBlogsRepository repository)
         {
             _repository = repository;
         }
+
+        public IEnumerable<Blog> Get(int page = 0)
+        {
+            return _repository.GetAllBlogs()
+                    .OrderBy(b => b.Title)
+                    .Skip(PAGE_SIZE * page)
+                    .Take(PAGE_SIZE).ToList();
+        }
+
         public HttpResponseMessage Create(BlogModel model)
         {
             var blog = new Blog { BloggerName = model.BloggerName, Title = model.Title };
