@@ -17,8 +17,7 @@ using BlogWebApi.Filters;
 
 namespace BlogWebApi.Controllers
 {
-    [BlogAuthorizationFilter]
-    public class BlogsController : ApiController
+    public class BlogsController : RestrictedApiController
     {
         private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 

@@ -33,6 +33,12 @@ namespace BlogWebApi
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
+                name: "User",
+                routeTemplate: "api/user/login",
+                defaults: new { controller = "user" }
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "Blog",
                 routeTemplate: "api/blogs/{id}",
                 defaults: new { controller = "blogs", id = RouteParameter.Optional }
