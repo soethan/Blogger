@@ -13,9 +13,11 @@ using System.Data.Entity.Infrastructure;
 using BlogWebApi.App_Start;
 using log4net;
 using System.Reflection;
+using BlogWebApi.Filters;
 
 namespace BlogWebApi.Controllers
 {
+    [BlogAuthorizationFilter]
     public class BlogsController : ApiController
     {
         private readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
