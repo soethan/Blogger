@@ -60,8 +60,8 @@ namespace BlogWebApi
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
             //To support jsonp
-            //var formatter = new JsonpMediaTypeFormatter(jsonFormatter);
-            //config.Formatters.Insert(0, formatter);
+            var formatter = new JsonpMediaTypeFormatter(jsonFormatter);
+            config.Formatters.Insert(0, formatter);
             
         }
     }
